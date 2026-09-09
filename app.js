@@ -893,12 +893,35 @@
     closeAllDropdowns();
     if (!wasOpen) {
       menu.classList.add('is-open');
+      keepTableMenuOnScreen(menu);
+    }
+  }
+
+  // Table view clips overflow for its rounded corners, which would cut off a
+  // dropdown near the bottom. Flip it upward when it would overflow the
+  // table's bottom edge; if the whole table is shorter than the menu, unclip
+  // the container instead. Card view never clips, so it is left alone.
+  function keepTableMenuOnScreen(menu) {
+    const tableWrap = menu.closest('.habits-table-container');
+    if (!tableWrap) return;
+    const wrapRect = tableWrap.getBoundingClientRect();
+    let rect = menu.getBoundingClientRect();
+    if (rect.bottom <= wrapRect.bottom + 1) return;
+    menu.classList.add('drop-up');
+    rect = menu.getBoundingClientRect();
+    if (rect.top < wrapRect.top - 1) {
+      menu.classList.remove('drop-up');
+      tableWrap.classList.add('menu-open');
     }
   }
 
   function closeAllDropdowns() {
     document.querySelectorAll('.card-dropdown-menu.is-open').forEach(menu => {
       menu.classList.remove('is-open');
+      menu.classList.remove('drop-up');
+    });
+    document.querySelectorAll('.habits-table-container.menu-open').forEach(el => {
+      el.classList.remove('menu-open');
     });
   }
 
