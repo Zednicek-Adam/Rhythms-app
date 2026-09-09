@@ -124,7 +124,9 @@ body::before {
   gap: 1rem;
   flex-wrap: wrap;
   margin: 0 -1.5rem 1.25rem;
-  padding: 0.9rem 1.5rem;
+  /* Safe-area top padding clears the iOS status bar / notch in standalone
+     PWA mode. In a normal browser tab the inset is 0, so nothing changes. */
+  padding: calc(0.9rem + env(safe-area-inset-top, 0px)) 1.5rem 0.9rem;
   background: rgba(8, 8, 10, 0.85);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
@@ -133,7 +135,7 @@ body::before {
 }
 
 .app-header.is-scrolled {
-  padding-top: 0.55rem;
+  padding-top: calc(0.55rem + env(safe-area-inset-top, 0px));
   padding-bottom: 0.55rem;
 }
 
@@ -1595,7 +1597,7 @@ form input[type="date"] {
 
   .app-header {
     margin: 0 -0.85rem 1rem;
-    padding: 0.75rem 0.85rem;
+    padding: calc(0.75rem + env(safe-area-inset-top, 0px)) 0.85rem 0.75rem;
     gap: 0.7rem;
   }
 
@@ -1630,7 +1632,7 @@ form input[type="date"] {
   .app-header.is-scrolled {
     flex-wrap: nowrap;
     gap: 0.6rem;
-    padding-top: 0.5rem;
+    padding-top: calc(0.5rem + env(safe-area-inset-top, 0px));
     padding-bottom: 0.5rem;
   }
 
@@ -1884,7 +1886,7 @@ form input[type="date"] {
    fall back to the JS-toggled .is-scrolled class. */
 @keyframes headerBarDesktop {
   to {
-    padding-top: 0.55rem;
+    padding-top: calc(0.55rem + env(safe-area-inset-top, 0px));
     padding-bottom: 0.55rem;
   }
 }
@@ -1893,7 +1895,7 @@ form input[type="date"] {
   to {
     flex-wrap: nowrap;
     gap: 0.6rem;
-    padding-top: 0.5rem;
+    padding-top: calc(0.5rem + env(safe-area-inset-top, 0px));
     padding-bottom: 0.5rem;
   }
 }

@@ -5,7 +5,7 @@
  */
 'use strict';
 
-var CACHE_NAME = 'rhythms-v1';
+var CACHE_NAME = 'rhythms-v2';
 var PRECACHE_URLS = [
   './',
   './index.html',
