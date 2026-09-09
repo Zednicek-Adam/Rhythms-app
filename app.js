@@ -1249,6 +1249,17 @@
     // file:// usage keeps working without errors.
     if ('serviceWorker' in navigator &&
         (location.protocol === 'http:' || location.protocol === 'https:')) {
+      // When an updated worker takes control of an already-controlled page,
+      // reload once so the fresh files (CSS/HTML/JS) replace the cached copy
+      // instead of lingering until a manual restart. Skipped on first install
+      // (page had no controller at load) to avoid a pointless reload loop.
+      const controlledAtLoad = !!navigator.serviceWorker.controller;
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing || !controlledAtLoad) return;
+        refreshing = true;
+        window.location.reload();
+      });
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js').catch(err => {
           console.warn('Service worker registration failed:', err);
