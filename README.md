@@ -1,6 +1,6 @@
 # Rhythms
 
-An alternative habit tracker. If you've ever wondered *"when was the last time I did …?"* — watered the plants, called mom, cleaned your desk — Rhythms answers at a glance.
+An alternative habit tracker. If you've ever wondered *"when was the last time I …?"* — watered the plants, called mom, cleaned your desk — Rhythms answers at a glance.
 
 **Live app:** https://zednicek-adam.github.io/Rhythms-app/
 
